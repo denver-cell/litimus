@@ -85,7 +85,10 @@ export const TIERS: Tier[] = [
     cta: "Talk to us",
   },
 ];
-
+// Numeric mirror of the Free tier's "2,000 words / day" copy above, kept as
+// its own export so the detector can enforce it without parsing feature
+// strings. Must match backend/lib/pricing.ts's PLAN_LIMITS.free.dailyWordLimit.
+export const FREE_WORD_LIMIT = 2_000;
 export const DAY_PASS = {
   price: "$3",
   priceSuffix: "once-off",
