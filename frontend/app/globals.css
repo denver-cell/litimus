@@ -93,6 +93,12 @@ h1 em{font-style:italic; color:var(--ai);}
   font-family:'IBM Plex Mono', monospace; font-size:0.68rem; color:var(--ink-soft);
 }
 .trust-line .dot{width:5px; height:5px; border-radius:50%; background:var(--human); flex-shrink:0;}
+.quota-line{
+  display:flex; align-items:center; gap:6px; padding:0 16px 10px;
+  font-family:'IBM Plex Mono', monospace; font-size:0.68rem; color:var(--ink-soft);
+}
+.quota-line a{color:var(--steel); text-decoration:underline; text-underline-offset:2px;}
+.quota-line a:hover{color:var(--ink);}
 .score-delta{
   font-family:'IBM Plex Mono', monospace; font-size:0.74rem; padding:3px 8px; border-radius:3px;
   display:inline-flex; align-items:center; gap:4px; margin-left:10px;
