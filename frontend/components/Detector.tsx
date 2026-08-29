@@ -406,7 +406,6 @@ export default function Detector() {
         />
       </div>
       <div className="trust-line">
-        <span className="dot" />
         Processed in your browser — never stored or sent anywhere unless you download the report.
       </div>
       <div className="quota-line">
