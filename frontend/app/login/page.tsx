@@ -67,7 +67,8 @@ export default function LoginPage() {
         </form>
 
         <div className="auth-switch">
-          New to Litimus? <Link href="/signup">Create a free account</Link>
+           New to Litimus? <Link href="/#detector">Scan a passage free</Link> — no account needed. Want more than
+          2,000 words a day? <Link href="/signup">Create an account</Link>.
         </div>
       </div>
       <Footer />
