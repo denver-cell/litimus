@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+
+# The frontend talks to the litmus-backend app over HTTPS using
+# NEXT_PUBLIC_BACKEND_URL (set in Netlify site settings), so no
+# same-site API proxying is required here.
