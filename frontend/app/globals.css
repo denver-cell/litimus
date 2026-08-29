@@ -93,7 +93,6 @@ h1 em{font-style:italic; color:var(--ai);}
   border-top:1px solid var(--hairline);
   font-family:'IBM Plex Mono', monospace; font-size:0.68rem; color:var(--ink-soft);
 }
-.trust-line .dot{width:5px; height:5px; border-radius:50%; background:var(--human); flex-shrink:0;}
 .quota-line{
   display:flex; align-items:center; gap:6px; padding:0 16px 10px;
   font-family:'IBM Plex Mono', monospace; font-size:0.68rem; color:var(--ink-soft);
