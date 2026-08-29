@@ -89,7 +89,8 @@ h1 em{font-style:italic; color:var(--ai);}
 .highlight-backdrop span.hl-repeat{ border-bottom:2px dotted var(--ai); }
 .highlight-backdrop span.hl-uniform{ border-bottom:1px dotted var(--steel); }
 .trust-line{
-  display:flex; align-items:center; gap:6px; padding:0 16px 10px;
+  display:flex; align-items:center; gap:6px; padding:12px 16px 10px;
+  border-top:1px solid var(--hairline);
   font-family:'IBM Plex Mono', monospace; font-size:0.68rem; color:var(--ink-soft);
 }
 .trust-line .dot{width:5px; height:5px; border-radius:50%; background:var(--human); flex-shrink:0;}
