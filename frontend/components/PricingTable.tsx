@@ -22,7 +22,10 @@ export default function PricingTable() {
                 <li key={f}>{f}</li>
               ))}
             </ul>
-            <Link href="/signup" className={`btn ${tier.featured ? "" : "btn-ghost"}`}>
+            <Link
+              href={tier.id === "free" ? "/#detector" : `/signup?plan=${tier.id}`}
+              className={`btn ${tier.featured ? "" : "btn-ghost"}`}
+            >
               {tier.cta}
             </Link>
           </div>
@@ -51,7 +54,7 @@ export default function PricingTable() {
             {DAY_PASS.price}
             <sup>{DAY_PASS.priceSuffix}</sup>
           </div>
-          <Link href="/signup" className="btn btn-ghost">
+          <Link href="/signup?plan=daypass" className="btn">
             Buy a day pass
           </Link>
         </div>
