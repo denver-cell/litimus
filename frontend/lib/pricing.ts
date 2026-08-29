@@ -31,7 +31,7 @@ export const TIERS: Tier[] = [
       "Full margin-notes report",
       "Score history: 24 hours",
     ],
-    cta: "Start free",
+    cta: "Free scan",
   },
   {
     id: "student",
@@ -47,7 +47,7 @@ export const TIERS: Tier[] = [
       "Citation-safe export for tutors",
       "Re-verify yearly, any country",
     ],
-    cta: "Verify & join",
+    cta: "Join Student",
     badge: "Student",
   },
   {
@@ -64,7 +64,7 @@ export const TIERS: Tier[] = [
       "Shareable, brandable reports",
       "Priority support",
     ],
-    cta: "Start Pro trial",
+    cta: "Start Pro",
     badge: "Most popular",
     featured: true,
   },
@@ -82,13 +82,15 @@ export const TIERS: Tier[] = [
       "Admin dashboard & audit log",
       "SSO on request",
     ],
-    cta: "Talk to us",
+    cta: "Join team",
   },
 ];
+
 // Numeric mirror of the Free tier's "2,000 words / day" copy above, kept as
 // its own export so the detector can enforce it without parsing feature
 // strings. Must match backend/lib/pricing.ts's PLAN_LIMITS.free.dailyWordLimit.
 export const FREE_WORD_LIMIT = 2_000;
+
 export const DAY_PASS = {
   price: "$3",
   priceSuffix: "once-off",
