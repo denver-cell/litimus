@@ -16,9 +16,6 @@ import {
 import { FREE_WORD_LIMIT } from "@/lib/pricing";
 import { checkAnonUsage, peekAnonUsage, type AnonUsageCheck, type AnonUsageSnapshot } from "@/lib/backend";
 
-const DEFAULT_TEXT =
-  "In today's fast-paced digital landscape, it is important to note that effective communication has become increasingly essential. Moreover, organizations must adapt to changing circumstances in order to remain competitive. Furthermore, it is crucial to leverage innovative solutions that drive meaningful results. In conclusion, businesses that embrace these strategies will undoubtedly thrive.";
-
 const MAX_FILE_BYTES = 10 * 1024 * 1024; // 10MB
 
 function words(text: string): string[] {
@@ -76,7 +73,7 @@ function renderHighlightedBackdrop(text: string, r: AnalysisResult): string {
 }
 
 export default function Detector() {
-  const [text, setText] = useState(DEFAULT_TEXT);
+  const [text, setText] = useState ("");
   const [scanning, setScanning] = useState(false);
   const [scanWidth, setScanWidth] = useState(0);
   const [result, setResult] = useState<AnalysisResult | null>(null);
