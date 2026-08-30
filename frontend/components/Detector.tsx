@@ -15,6 +15,7 @@ import {
 } from "@/lib/analyze";
 import { FREE_WORD_LIMIT } from "@/lib/pricing";
 import { checkAnonUsage, peekAnonUsage, type AnonUsageCheck, type AnonUsageSnapshot } from "@/lib/backend";
+import { trackEvent } from "@/lib/analytics";
 
 const MAX_FILE_BYTES = 10 * 1024 * 1024; // 10MB
 
@@ -255,6 +256,14 @@ export default function Detector() {
       setBackdropHtml(renderHighlightedBackdrop(trimmed, r));
       setResult(r);
       setScanning(false);
+      // Key event: a scan actually completed and produced a score. Word
+      // count and verdict are useful breakdowns in GA4 without ever
+      // sending the manuscript text itself.
+      trackEvent("scan_completed", {
+        word_count: count,
+        score: r.score,
+        verdict: verdictLabel(r.score).label,
+      });
     }, 550);
   }
 
@@ -372,7 +381,14 @@ export default function Detector() {
     doc.setTextColor(100, 110, 120);
     doc.text("Need more than 2,000 words a day? A one-time day pass or a Student plan starts at $3.", marginX, y);
 
-    doc.save(`litimus-report-${Date.now()}.pdf`);
+    const fileName = `litimus-report-${Date.now()}.pdf`;
+    doc.save(fileName);
+    // Key event: a visitor downloaded the PDF report — a strong signal
+    // of engagement beyond just running a scan.
+    trackEvent("file_download", {
+      file_name: fileName,
+      file_extension: "pdf",
+    });
   }
 
   const scoreDelta = result && lastScore !== null ? result.score - lastScore : 0;
