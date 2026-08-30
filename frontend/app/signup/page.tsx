@@ -7,6 +7,7 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { createClient } from "@/lib/supabaseClient";
 import { TIERS, DAY_PASS, type TierId } from "@/lib/pricing";
+import { trackEvent } from "@/lib/analytics";
 
 type SignupOption = TierId | "daypass";
 
@@ -66,6 +67,10 @@ function SignupForm() {
       const { error: signUpError } = await supabase.auth.signUp({ email, password });
       if (signUpError) throw signUpError;
       setSent(true);
+      // Key event: an account was actually created. "method" matches
+      // GA4's recommended sign_up event shape; "plan" is a custom param
+      // so signups can be broken down by which tier they picked.
+      trackEvent("sign_up", { method: "email", plan: selected });
     } catch (err: any) {
       setError(err.message || "Something went wrong creating your account.");
     } finally {
