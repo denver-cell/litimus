@@ -231,6 +231,7 @@ h2{font-family:'Fraunces', serif; font-weight:500; font-size:2.1rem; letter-spac
 
 /* FAQ */
 .faq{border-top:1px solid var(--hairline);}
+.cta{padding-top:56px; border-top:1px solid var(--hairline);}
 .faq-list{max-width:720px;}
 .faq-item{border-bottom:1px solid var(--hairline); padding:20px 0;}
 .faq-q{font-weight:600; font-size:0.98rem; cursor:pointer; display:flex; justify-content:space-between; align-items:center;}
