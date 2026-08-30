@@ -210,7 +210,7 @@ h2{font-family:'Fraunces', serif; font-weight:500; font-size:2.1rem; letter-spac
 .plan-feats{list-style:none; margin-bottom:24px; flex:1;}
 .plan-feats li{font-size:0.85rem; padding:7px 0; border-top:1px solid var(--hairline); display:flex; gap:8px;}
 .plan-feats li:first-child{border-top:none;}
-.plan-feats li::before{content:'-”'; color:var(--ink-soft); flex-shrink:0;}
+.plan-feats li::before{content:'+'; color:var(--ink-soft); flex-shrink:0;}
 .plan .btn{width:100%; text-align:center;}
 .student-note{margin-top:44px; padding:18px 20px; background:var(--human-bg); border:1px solid #cfe0d3; border-radius:6px; font-size:0.86rem; color:#2A5940; display:flex; gap:12px; align-items:flex-start;}
 .boost-card{
