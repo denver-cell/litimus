@@ -9,6 +9,8 @@ export default function Footer() {
           <Link href="/pricing">Pricing</Link>
           <Link href="/#faq">FAQ</Link>
           <Link href="/privacy">Privacy</Link>
+          <Link href="/terms">Terms</Link>
+          <Link href="/refund-policy">Refunds</Link>
           <Link href="/docs/api">API docs</Link>
         </div>
       </div>
