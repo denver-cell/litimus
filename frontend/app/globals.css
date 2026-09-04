@@ -288,3 +288,9 @@ h2{font-family:'Fraunces', serif; font-weight:500; font-size:2.1rem; letter-spac
   .plan-grid{grid-template-columns:1fr;}
   .navlinks{display:none;}
 }
+/* LEGAL PAGES */
+.legal p{margin-bottom:16px; color:var(--ink-soft);}
+.legal h3{font-family:'Fraunces', serif; font-weight:500; font-size:1.25rem; letter-spacing:-0.01em; margin:32px 0 12px;}
+.legal ul{margin:0 0 16px 20px; color:var(--ink-soft);}
+.legal li{margin-bottom:8px;}
+.legal a{color:var(--steel); text-decoration:underline;}
