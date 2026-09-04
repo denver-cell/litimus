@@ -288,9 +288,9 @@ h2{font-family:'Fraunces', serif; font-weight:500; font-size:2.1rem; letter-spac
   .plan-grid{grid-template-columns:1fr;}
   .navlinks{display:none;}
 }
-/* LEGAL PAGES */
-.legal p{margin-bottom:16px; color:var(--ink-soft);}
-.legal h3{font-family:'Fraunces', serif; font-weight:500; font-size:1.25rem; letter-spacing:-0.01em; margin:32px 0 12px;}
-.legal ul{margin:0 0 16px 20px; color:var(--ink-soft);}
-.legal li{margin-bottom:8px;}
-.legal a{color:var(--steel); text-decoration:underline;}
+/* FOOTER */
+footer{padding:32px 0; border-top:1px solid var(--hairline); font-size:0.85rem; color:var(--ink-soft);}
+footer .wrap{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;}
+.foot-links{display:flex; align-items:center; gap:22px; flex-wrap:wrap;}
+.foot-links a{text-decoration:none; color:var(--ink-soft); transition:color .15s;}
+.foot-links a:hover{color:var(--ink);}
