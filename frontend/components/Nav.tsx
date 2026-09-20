@@ -1,4 +1,5 @@
 import Link from "next/link";
+import NavAuth from "./NavAuth";
 
 export default function Nav() {
   return (
@@ -16,9 +17,7 @@ export default function Nav() {
           <Link href="/guides">Guides</Link>
           <Link href="/#faq">FAQ</Link>
         </div>
-        <Link href="/pricing" className="btn">
-          Get started
-        </Link>
+        <NavAuth />
       </nav>
     </header>
   );

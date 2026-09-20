@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { TIERS, DAY_PASS } from "@/lib/pricing";
+import { TIERS, DAY_PASS, ZAR_PRICES } from "@/lib/pricing";
 
 export default function PricingTable() {
   return (
@@ -23,7 +23,7 @@ export default function PricingTable() {
               ))}
             </ul>
             <Link
-              href={tier.id === "free" ? "/#detector" : `/signup?plan=${tier.id}`}
+              href={tier.id === "free" ? "/#detector" : `/checkout?plan=${tier.id}`}
               className={`btn ${tier.featured ? "" : "btn-ghost"}`}
             >
               {tier.cta}
@@ -41,6 +41,11 @@ export default function PricingTable() {
         </div>
       </div>
 
+      <p style={{ fontSize: "0.85rem", color: "var(--ink-soft)", margin: "0 0 20px" }}>
+        Prices are in US dollars. Payments are processed by PayFast in South African rand, so its payment page shows
+        the rand equivalent (for example {ZAR_PRICES.pro} for Pro).
+      </p>
+
       <div className="boost-card">
         <div className="boost-info">
           <span className="boost-icon">+</span>
@@ -54,7 +59,7 @@ export default function PricingTable() {
             {DAY_PASS.price}
             <sup>{DAY_PASS.priceSuffix}</sup>
           </div>
-          <Link href="/signup?plan=daypass" className="btn">
+          <Link href="/checkout?plan=daypass" className="btn">
             Buy a day pass
           </Link>
         </div>
