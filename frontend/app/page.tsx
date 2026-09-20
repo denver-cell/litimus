@@ -4,10 +4,15 @@ import Footer from "@/components/Footer";
 import Detector from "@/components/Detector";
 import Faq from "@/components/Faq";
 import PricingTable from "@/components/PricingTable";
+import JsonLd from "@/components/JsonLd";
+import { HOME_DESCRIPTION, HOME_TITLE, applicationSchema, pageMetadata } from "@/lib/seo";
+
+export const metadata = pageMetadata({ title: HOME_TITLE, description: HOME_DESCRIPTION, path: "/" });
 
 export default function HomePage() {
   return (
     <>
+      <JsonLd data={applicationSchema} />
       <Nav />
 
       <section className="hero">

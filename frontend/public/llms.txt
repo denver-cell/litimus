@@ -1,0 +1,23 @@
+# Litimus
+
+> Litimus is an AI text detection tool. It scores a passage on six writing signals (sentence rhythm, stock transitions, vocabulary spread, phrase repetition, punctuation habits and structural symmetry) and shows the reasons behind the score sentence by sentence. It gives a probability, not a verdict, and says so on every report.
+
+Litimus is operated by Forsta Group (Pty) Ltd, a South Africa-based company serving a global audience. Free scans run in the browser and the scanned text is not sent to Litimus servers. Support: support@litimus.app
+
+## Product
+
+- [Home and free detector](https://litimus.app/): paste a passage and get a scored, annotated report. The free tier allows 2,000 words per day with no account.
+- [Pricing](https://litimus.app/pricing): Free, Student ($4/mo), Pro ($15/mo), Team & API (from $49/mo), plus a one-time $3 day pass that adds 10,000 words for 24 hours.
+- [API documentation](https://litimus.app/docs/api): REST API for the Team & API plan.
+
+## Policies
+
+- [Privacy](https://litimus.app/privacy): how scanned text is handled. Free scans stay in the browser; saved report history on paid plans is opt-in.
+- [Terms of Service](https://litimus.app/terms): includes the clause that detection scores are probabilistic and are not proof.
+- [Refund Policy](https://litimus.app/refund-policy): refunds for subscriptions and day passes.
+
+## Limits worth knowing
+
+- Detection is statistical. Heavily edited AI text and unusual human writing styles can both land in the middle of the range, so borderline scores should be treated as inconclusive.
+- No Litimus score should be the sole basis for an academic or employment penalty.
+- Passages under 25 words do not carry enough signal for a stable read.

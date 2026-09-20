@@ -1,7 +1,13 @@
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Privacy — Litimus" };
+export const metadata = pageMetadata({
+  title: "Privacy — Litimus",
+  description:
+    "How Litimus handles your text: free and Student scans run in your browser, and saved report history on paid plans is opt-in and off by default.",
+  path: "/privacy",
+});
 
 export default function PrivacyPage() {
   return (

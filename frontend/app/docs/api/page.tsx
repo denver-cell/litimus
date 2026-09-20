@@ -1,7 +1,13 @@
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = { title: "API docs — Litimus" };
+export const metadata = pageMetadata({
+  title: "API docs — Litimus",
+  description:
+    "Litimus REST API for the Team & API plan: send text to the detect endpoint with a bearer API key and receive a scored analysis.",
+  path: "/docs/api",
+});
 
 export default function ApiDocsPage() {
   return (

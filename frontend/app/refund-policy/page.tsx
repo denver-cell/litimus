@@ -1,7 +1,13 @@
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Refund Policy — Litimus" };
+export const metadata = pageMetadata({
+  title: "Refund Policy — Litimus",
+  description:
+    "Litimus refund policy for subscriptions and Day Passes: when refunds apply, what is non-refundable, and how to request one from support.",
+  path: "/refund-policy",
+});
 
 export default function RefundPolicyPage() {
   return (

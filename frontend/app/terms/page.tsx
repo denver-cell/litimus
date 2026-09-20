@@ -1,7 +1,13 @@
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata = { title: "Terms of Service — Litimus" };
+export const metadata = pageMetadata({
+  title: "Terms of Service — Litimus",
+  description:
+    "The terms for using Litimus, operated by Forsta Group (Pty) Ltd, including how detection scores should and should not be relied on.",
+  path: "/terms",
+});
 
 export default function TermsPage() {
   return (

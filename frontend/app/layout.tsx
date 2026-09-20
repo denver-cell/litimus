@@ -1,11 +1,45 @@
 import type { Metadata } from "next";
 import Script from "next/script";
 import "./globals.css";
+import JsonLd from "@/components/JsonLd";
+import { HOME_DESCRIPTION, HOME_TITLE, OG_IMAGE, SITE_NAME, SITE_URL, siteGraph } from "@/lib/seo";
 
+// Site-wide defaults. Each page overrides title/description/canonical/social
+// through pageMetadata() in lib/seo.ts. Deliberately NO canonical here: a
+// canonical set at the layout level would be inherited by every page that
+// forgets its own, telling Google they are all duplicates of the homepage.
 export const metadata: Metadata = {
-  title: "Litimus — AI Text Detection",
-  description:
-    "Litimus scores rhythm, phrasing, and repetition the way an editor reads a manuscript — then shows its work sentence by sentence.",
+  metadataBase: new URL(SITE_URL),
+  title: HOME_TITLE,
+  description: HOME_DESCRIPTION,
+  applicationName: SITE_NAME,
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true, "max-image-preview": "large", "max-snippet": -1 },
+  },
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
+  // Fallback for routes that don't call pageMetadata() (e.g. the 404 page).
+  openGraph: {
+    type: "website",
+    siteName: SITE_NAME,
+    locale: "en_US",
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+    images: [OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: HOME_TITLE,
+    description: HOME_DESCRIPTION,
+    images: [OG_IMAGE.url],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -24,6 +58,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             gtag('config', 'G-5BMVDCZJ3H');
           `}
         </Script>
+        <JsonLd data={siteGraph} />
         {children}
       </body>
     </html>
