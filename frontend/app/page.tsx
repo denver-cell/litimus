@@ -159,6 +159,46 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="how" id="who">
+        <div className="wrap">
+          <div className="section-head">
+            <div className="section-eyebrow">Who it&apos;s for</div>
+            <h2>A second opinion, whatever you write or read.</h2>
+            <p>
+              A score is a starting point for a conversation, never a verdict. Each page below covers how to use one
+              fairly.
+            </p>
+          </div>
+          <div className="how-grid">
+            <div className="how-step">
+              <div className="how-num mono">01</div>
+              <h3>
+                <Link href="/for/teachers">Teachers</Link>
+              </h3>
+              <p>A fair five-step process for checking student work without treating a score as proof.</p>
+            </div>
+            <div className="how-step">
+              <div className="how-num mono">02</div>
+              <h3>
+                <Link href="/for/students">Students</Link>
+              </h3>
+              <p>Check your own writing before you hand it in, and keep the evidence that it is yours.</p>
+            </div>
+            <div className="how-step">
+              <div className="how-num mono">03</div>
+              <h3>
+                <Link href="/for/writers-and-editors">Writers and editors</Link>
+              </h3>
+              <p>Use the six signals as edit notes and a second opinion on drafts and submissions.</p>
+            </div>
+          </div>
+          <p style={{ marginTop: 32, color: "var(--ink-soft)", fontSize: "0.95rem" }}>
+            Want the background? Read <Link href="/guides/how-ai-detectors-work">how AI detectors work</Link>, or see how
+            Litimus <Link href="/compare">compares with GPTZero, Turnitin and Originality.ai</Link>.
+          </p>
+        </div>
+      </section>
+
       <section className="pricing" id="pricing">
         <div className="wrap">
           <div className="section-head">

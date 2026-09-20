@@ -294,3 +294,52 @@ footer .wrap{display:flex; align-items:center; justify-content:space-between; fl
 .foot-links{display:flex; align-items:center; gap:22px; flex-wrap:wrap;}
 .foot-links a{text-decoration:none; color:var(--ink-soft); transition:color .15s;}
 .foot-links a:hover{color:var(--ink);}
+
+/* LONG-FORM CONTENT
+   Shared by the legal pages (.legal) and the /guides, /compare and /for pages (.prose).
+   The global reset above zeroes every margin and list indent, so spacing and
+   bullets for running text have to be restored here. */
+.legal p, .prose p{margin:0 0 16px; line-height:1.7;}
+.legal p.hero-sub{margin:0 0 20px; line-height:1.55;}
+.legal ul, .legal ol, .prose ul, .prose ol{margin:0 0 18px; padding-left:22px;}
+.legal li, .prose li{margin-bottom:8px; line-height:1.65;}
+.legal h3, .prose h3{font-size:1.1rem; font-weight:600; margin:30px 0 10px;}
+.legal a, .prose a{color:var(--steel); text-underline-offset:2px;}
+.legal a:hover, .prose a:hover{color:var(--ink);}
+.legal strong, .prose strong{font-weight:600;}
+
+.prose h1{font-size:2.5rem; line-height:1.1; margin-bottom:18px;}
+.prose h2{font-size:1.6rem; line-height:1.2; margin:46px 0 14px;}
+.prose .lede{font-size:1.15rem; line-height:1.6; color:var(--ink-soft); margin-bottom:22px;}
+.prose .meta{font-family:'IBM Plex Mono', monospace; font-size:0.72rem; letter-spacing:0.06em; text-transform:uppercase; color:var(--ink-soft); margin:0 0 30px;}
+.crumbs{display:flex; flex-wrap:wrap; gap:6px; font-size:0.82rem; color:var(--ink-soft); margin-bottom:22px;}
+.prose .crumbs a{color:var(--ink-soft); text-decoration:none;}
+.prose .crumbs a:hover{color:var(--ink); text-decoration:underline;}
+.callout{border-left:3px solid var(--steel); background:var(--steel-bg); padding:16px 20px; border-radius:0 var(--radius) var(--radius) 0; margin:0 0 24px;}
+.prose .callout p{margin:0; font-size:0.95rem;}
+.prose .callout p + p{margin-top:10px;}
+.table-wrap{overflow-x:auto; margin:0 0 26px; border:1px solid var(--hairline); border-radius:6px; background:#fff;}
+table.cmp{width:100%; min-width:560px; border-collapse:collapse; font-size:0.9rem;}
+table.cmp th, table.cmp td{text-align:left; vertical-align:top; padding:12px 16px; border-bottom:1px solid var(--hairline); line-height:1.5;}
+table.cmp thead th{background:var(--paper-dim); font-family:'IBM Plex Mono', monospace; font-size:0.74rem; font-weight:500; text-transform:uppercase; letter-spacing:0.06em; color:var(--ink-soft);}
+table.cmp tbody th{width:22%; font-weight:600; color:var(--ink);}
+table.cmp tbody tr:last-child th, table.cmp tbody tr:last-child td{border-bottom:none;}
+.card-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px; margin:0 0 26px;}
+.prose a.card-link{display:block; background:#fff; border:1px solid var(--hairline); border-radius:6px; padding:18px 20px; text-decoration:none; color:var(--ink); transition:border-color .15s, transform .12s;}
+.prose a.card-link:hover{border-color:var(--steel); transform:translateY(-1px); color:var(--ink);}
+.card-link b{display:block; font-family:'Fraunces', serif; font-weight:500; font-size:1.1rem; margin-bottom:6px;}
+.card-link span{display:block; font-size:0.88rem; color:var(--ink-soft); line-height:1.5;}
+.scan-cta{margin:44px 0 8px; padding:26px 28px; background:var(--paper-dim); border:1px solid var(--hairline); border-radius:6px;}
+.prose .scan-cta h2{margin:0 0 8px; font-size:1.35rem;}
+.prose .scan-cta p{margin:0 0 16px; color:var(--ink-soft);}
+.prose a.btn{color:var(--paper); text-decoration:none;}
+.prose a.btn-ghost{color:var(--ink);}
+.scan-cta .btn + .btn{margin-left:10px;}
+.sources ol{font-size:0.88rem; color:var(--ink-soft);}
+.sources p{font-size:0.88rem; color:var(--ink-soft);}
+@media (max-width: 880px){
+  .prose h1{font-size:2rem;}
+  .prose h2{font-size:1.4rem;}
+}
+.how-step h3 a{text-decoration:underline; text-underline-offset:3px; text-decoration-color:var(--hairline);}
+.how-step h3 a:hover{text-decoration-color:var(--steel);}

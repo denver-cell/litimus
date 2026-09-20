@@ -1,6 +1,6 @@
 # Litimus
 
-> Litimus is an AI text detection tool. It scores a passage on six writing signals (sentence rhythm, stock transitions, vocabulary spread, phrase repetition, punctuation habits and structural symmetry) and shows the reasons behind the score sentence by sentence. It gives a probability, not a verdict, and says so on every report.
+> Litimus is an AI text detection tool. It scores a passage on six writing signals (sentence rhythm, stock transitions, vocabulary spread, phrase repetition, punctuation habits and structural symmetry) and shows the readings and the specific phrases behind the score. It gives a probability, not a verdict, and says so on every report.
 
 Litimus is operated by Forsta Group (Pty) Ltd, a South Africa-based company serving a global audience. Free scans run in the browser and the scanned text is not sent to Litimus servers. Support: support@litimus.app
 
@@ -9,6 +9,15 @@ Litimus is operated by Forsta Group (Pty) Ltd, a South Africa-based company serv
 - [Home and free detector](https://litimus.app/): paste a passage and get a scored, annotated report. The free tier allows 2,000 words per day with no account.
 - [Pricing](https://litimus.app/pricing): Free, Student ($4/mo), Pro ($15/mo), Team & API (from $49/mo), plus a one-time $3 day pass that adds 10,000 words for 24 hours.
 - [API documentation](https://litimus.app/docs/api): REST API for the Team & API plan.
+
+## Guides, comparisons and use cases
+
+- [Guides](https://litimus.app/guides): plain-language explanations of AI text detection.
+- [How AI detectors work](https://litimus.app/guides/how-ai-detectors-work): the signals detectors use and why every result is a probability.
+- [AI detector false positives](https://litimus.app/guides/ai-detector-false-positives): why honest writing gets flagged and who is affected most.
+- [Falsely accused of using AI?](https://litimus.app/guides/falsely-accused-of-ai-writing): practical steps if a detector flagged your own work.
+- [Compare AI detectors](https://litimus.app/compare): how Litimus differs from GPTZero, Turnitin and Originality.ai, with sources and review dates.
+- [For teachers](https://litimus.app/for/teachers), [for students](https://litimus.app/for/students) and [for writers and editors](https://litimus.app/for/writers-and-editors): how to use a detector fairly in each role.
 
 ## Policies
 

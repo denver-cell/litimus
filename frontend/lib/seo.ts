@@ -115,3 +115,41 @@ export const applicationSchema = {
     url: `${SITE_URL}/pricing`,
   })),
 };
+
+/** Breadcrumb trail. `items` runs from the section root down to the current page, Home excluded. */
+export function breadcrumbSchema(items: { name: string; path: string }[]) {
+  const all = [{ name: "Home", path: "/" }, ...items];
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: all.map((it, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: it.name,
+      item: new URL(it.path, SITE_URL).toString(),
+    })),
+  };
+}
+
+/** Article markup for guides and comparison pages. Authored by the organization, not a named person. */
+export function articleSchema(input: {
+  title: string;
+  description: string;
+  path: string;
+  published: string; // ISO date, e.g. "2026-09-20"
+  modified: string; // ISO date
+}) {
+  const url = new URL(input.path, SITE_URL).toString();
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: input.title,
+    description: input.description,
+    mainEntityOfPage: { "@type": "WebPage", "@id": url },
+    datePublished: input.published,
+    dateModified: input.modified,
+    author: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
+    publisher: { "@id": `${SITE_URL}/#organization` },
+    image: new URL(OG_IMAGE.url, SITE_URL).toString(),
+  };
+}

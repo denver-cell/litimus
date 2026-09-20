@@ -13,6 +13,7 @@ export default function Nav() {
           <Link href="/#how">How it works</Link>
           <Link href="/#signals">Signals</Link>
           <Link href="/pricing">Pricing</Link>
+          <Link href="/guides">Guides</Link>
           <Link href="/#faq">FAQ</Link>
         </div>
         <Link href="/pricing" className="btn">
