@@ -2,8 +2,6 @@
 // The backend enforces auth + usage limits server-side; this just wraps
 // fetch with the right base URL and JSON handling.
 
-import type { CheckoutPlanId } from "./pricing";
-
 const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:3001";
 
 export interface DetectResponse {
@@ -58,67 +56,12 @@ export async function fetchUsage(accessToken: string): Promise<UsageResponse> {
   return res.json();
 }
 
-// ---------------------------------------------------------------------------
-// Checkout (PayFast)
-// ---------------------------------------------------------------------------
-
 // Thrown when the backend says the caller isn't (or is no longer) logged in,
 // so the checkout page can send them to /login instead of showing a raw error.
+// Checkout itself talks straight to Paddle (see lib/paddle.ts) — this backend
+// is never involved in starting a payment, only in the webhook that confirms
+// one (app/api/billing/paddle/webhook on the backend).
 export class AuthRequiredError extends Error {}
-
-export interface PayfastCheckout {
-  redirectUrl: string;
-  fields: Record<string, string>;
-}
-
-// Asks the backend for a signed PayFast field set. Subscriptions and the
-// day pass are separate endpoints; neither grants anything itself — the plan
-// only switches on when PayFast's ITN webhook confirms payment.
-export async function createCheckout(plan: CheckoutPlanId, accessToken: string): Promise<PayfastCheckout> {
-  const path = plan === "daypass" ? "/api/daypass" : "/api/billing/payfast/checkout";
-  const res = await fetch(`${BACKEND_URL}${path}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-    body: JSON.stringify({ plan }),
-  });
-  const body = await res.json().catch(() => ({} as Record<string, unknown>));
-
-  if (res.status === 401) {
-    throw new AuthRequiredError((body.error as string | undefined) || "Please log in to continue.");
-  }
-  if (!res.ok) {
-    throw new Error((body.error as string | undefined) || `Couldn't start checkout (${res.status}). Please try again.`);
-  }
-  return body as unknown as PayfastCheckout;
-}
-
-const PAYFAST_HOSTS = new Set(["www.payfast.co.za", "sandbox.payfast.co.za"]);
-
-// PayFast's hosted checkout takes a form POST, so build a hidden form from
-// the signed fields and submit it. Field order is preserved (the signature
-// depends on it). Refuses to post to anything that isn't PayFast.
-export function redirectToPayfast({ redirectUrl, fields }: PayfastCheckout): void {
-  const target = new URL(redirectUrl);
-  if (target.protocol !== "https:" || !PAYFAST_HOSTS.has(target.hostname)) {
-    throw new Error("Unexpected payment address — checkout was stopped for your safety.");
-  }
-
-  const form = document.createElement("form");
-  form.method = "POST";
-  form.action = redirectUrl;
-  for (const [name, value] of Object.entries(fields)) {
-    const input = document.createElement("input");
-    input.type = "hidden";
-    input.name = name;
-    input.value = value;
-    form.appendChild(input);
-  }
-  document.body.appendChild(form);
-  form.submit();
-}
 
 export interface AnonUsageCheck {
   allowed: boolean;

@@ -21,7 +21,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "What if I just need more words for one deadline?",
-    a: "Buy a one-time day pass ($3) instead of upgrading your plan — it adds 10,000 words to your limit for 24 hours, works on top of Free or any paid tier, and doesn't auto-renew or commit you to anything ongoing.",
+    a: "Buy a one-time day pass ($5) instead of upgrading your plan — it adds 10,000 words to your limit for 24 hours, works on top of Free or any paid tier, and doesn't auto-renew or commit you to anything ongoing.",
   },
   {
     q: "Is there an API?",

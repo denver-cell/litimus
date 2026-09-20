@@ -6,8 +6,9 @@ import { useSearchParams } from "next/navigation";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { createClient } from "@/lib/supabaseClient";
-import { TIERS, DAY_PASS, ZAR_PRICES, TERMS_VERSION, type CheckoutPlanId } from "@/lib/pricing";
-import { createCheckout, redirectToPayfast, fetchUsage, AuthRequiredError } from "@/lib/backend";
+import { TIERS, DAY_PASS, TERMS_VERSION, type CheckoutPlanId } from "@/lib/pricing";
+import { fetchUsage, AuthRequiredError } from "@/lib/backend";
+import { openPaddleCheckout } from "@/lib/paddle";
 import { trackEvent } from "@/lib/analytics";
 import styles from "./checkout.module.css";
 
@@ -15,7 +16,7 @@ import styles from "./checkout.module.css";
 //   1. choose a plan (price + billing period shown up front)
 //   2. enter your details
 //   3. review the order and agree to the Terms
-// Submitting creates the account, then sends the buyer to PayFast to pay.
+// Submitting creates the account, then opens Paddle's checkout overlay to pay.
 // (Nobody is asked to log in or sign up before they've picked something.)
 
 interface CheckoutOption {
@@ -119,8 +120,9 @@ function CheckoutFlow() {
     };
   }, []);
 
-  // Browser Back from PayFast can restore this page frozen mid-"working";
-  // put the button back so the buyer isn't stuck on a dead spinner.
+  // Browser Back can restore this page frozen mid-"working" (e.g. after
+  // closing Paddle's overlay); put the button back so the buyer isn't stuck
+  // on a dead spinner.
   useEffect(() => {
     const onShow = (event: PageTransitionEvent) => {
       if (event.persisted) setPhase((p) => (p === "working" ? "form" : p));
@@ -130,9 +132,8 @@ function CheckoutFlow() {
   }, []);
 
   const option = OPTIONS.find((o) => o.id === plan)!;
-  const zar = ZAR_PRICES[plan];
-  // The total is shown in US dollars, matching the pricing page. PayFast
-  // itself settles in rand, which the fine print below discloses.
+  // The total is shown in US dollars, matching the pricing page — Paddle
+  // bills in real USD, no FX conversion or disclosure needed.
   const usdTotal = `$${Number(option.price.replace(/[^0-9.]/g, "")).toFixed(2)}`;
   const isAuthed = auth.status === "authed";
   const alreadyAgreed = auth.status === "authed" && auth.termsAcceptedAt !== null;
@@ -166,12 +167,14 @@ function CheckoutFlow() {
     try {
       const supabase = createClient();
       const acceptedAt = new Date().toISOString();
-      let accessToken: string;
+      let userId: string;
+      let buyerEmail: string;
 
       if (auth.status === "authed") {
         const { data } = await supabase.auth.getSession();
         if (!data.session) throw new AuthRequiredError("Your session expired.");
-        accessToken = data.session.access_token;
+        userId = data.session.user.id;
+        buyerEmail = auth.email;
         if (!alreadyAgreed) {
           // Record the agreement on the account. Best effort: never let a
           // metadata hiccup block someone who is trying to pay.
@@ -218,14 +221,20 @@ function CheckoutFlow() {
           setPhase("confirm-email");
           return;
         }
-        accessToken = data.session.access_token;
+        userId = data.session.user.id;
+        buyerEmail = email;
         setAuth({ status: "authed", email, termsAcceptedAt: acceptedAt });
       }
 
-      const checkout = await createCheckout(plan, accessToken);
-      trackEvent("begin_checkout", { plan, currency: "ZAR" });
-      redirectToPayfast(checkout);
-      // Deliberately stay in "working": the browser is leaving for PayFast.
+      trackEvent("begin_checkout", { plan, currency: "USD" });
+      await openPaddleCheckout({
+        plan,
+        userId,
+        email: buyerEmail,
+        onClose: () => setPhase("form"),
+      });
+      // Stay in "working" behind Paddle's overlay: on success it navigates
+      // the browser to successUrl itself; onClose above handles cancelling.
     } catch (err) {
       if (err instanceof AuthRequiredError) {
         setLoginHint("expired");
@@ -271,8 +280,8 @@ function CheckoutFlow() {
       <div className={styles.eyebrow}>Checkout</div>
       <h1 className={styles.title}>Get set up in three steps</h1>
       <p className={styles.lead}>
-        Choose a plan, add your details, and agree to the terms. We&apos;ll create your account and take you to
-        PayFast to pay securely.
+        Choose a plan, add your details, and agree to the terms. We&apos;ll create your account and open Paddle&apos;s
+        secure checkout to pay.
       </p>
 
       {cancelled && (
@@ -413,8 +422,8 @@ function CheckoutFlow() {
             </div>
           </dl>
           <p className={styles.fineprint}>
-            Payments are processed by PayFast in South African rand, so its secure payment page will show the rand
-            equivalent ({zar}). Your bank may apply its own exchange rate or conversion fee.
+            Payments are processed securely by Paddle, our merchant of record, in US dollars — no currency
+            conversion or surprise FX fee.
           </p>
 
           {alreadyAgreed ? (
@@ -480,15 +489,15 @@ function CheckoutFlow() {
             >
               {busy
                 ? isAuthed
-                  ? "Taking you to PayFast…"
+                  ? "Opening secure checkout…"
                   : "Creating your account…"
                 : isAuthed
-                  ? `Pay ${usdTotal} with PayFast`
+                  ? `Pay ${usdTotal} with Paddle`
                   : "Create account & continue to payment"}
             </button>
           )}
           <p className={styles.secure}>
-            You&apos;ll pay on PayFast&apos;s secure page — we never see or store your card details.
+            You&apos;ll pay through Paddle&apos;s secure checkout — we never see or store your card details.
           </p>
         </section>
       </form>

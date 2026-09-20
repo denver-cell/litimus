@@ -8,9 +8,11 @@ export const runtime = "nodejs";
 // (the kind Spotify/Amazon use — e.g. SheerID or UNiDAYS), as promised on
 // the pricing page. Swap the TODO below for a real call to that
 // provider's API once an account is set up; this route's job is just to
-// mark the user's profile as student-verified once that check passes, so
-// the PayFast student-plan checkout (billing/payfast/checkout) is gated
-// on it.
+// mark the user's profile as student-verified once that check passes.
+// NOTE: nothing currently reads student_verified_until to gate the student
+// plan at checkout — anyone can buy it today. Wiring that check in (likely
+// in frontend/app/checkout/page.tsx, before openPaddleCheckout) is a
+// prerequisite for a real verification provider being worth adding here.
 export async function POST(req: NextRequest) {
   const user = await getAuthedUser(req);
   if (!user) {

@@ -18,7 +18,7 @@ export default function TermsPage() {
           <div className="section-eyebrow">Terms of Service</div>
           <h2>Terms of Service</h2>
           <p className="hero-sub" style={{ maxWidth: "none" }}>
-            Last updated: September 4, 2026
+            Last updated: September 20, 2026
           </p>
 
           <p>
@@ -82,10 +82,10 @@ export default function TermsPage() {
           <h3>5. Subscriptions, Billing, and Payment</h3>
           <ul>
             <li>
-              Paid plans are billed on a recurring monthly basis in advance through our payment processor, PayFast.
+              Paid plans are billed on a recurring monthly basis in advance through our payment processor, Paddle.
             </li>
             <li>
-              By subscribing, you authorise us (via PayFast) to charge your chosen payment method automatically each
+              By subscribing, you authorise us (via Paddle) to charge your chosen payment method automatically each
               billing period until you cancel.
             </li>
             <li>
@@ -143,8 +143,8 @@ export default function TermsPage() {
           <h3>10. Third-Party Services</h3>
           <p>
             The Service relies on third-party infrastructure providers, including but not limited to Supabase
-            (database/authentication), Netlify (hosting), and PayFast (payment processing). Your use of payment
-            features is also subject to PayFast's own terms and privacy policy.
+            (database/authentication), Netlify (hosting), and Paddle (payment processing and merchant of record).
+            Your use of payment features is also subject to Paddle's own terms and privacy policy.
           </p>
 
           <h3>11. Privacy</h3>

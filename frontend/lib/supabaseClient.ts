@@ -3,7 +3,7 @@
 import { createBrowserClient } from "@supabase/ssr";
 
 // Browser-side Supabase client. Uses the public anon key only — all
-// privileged operations (usage limiting, plan changes, PayFast webhooks)
+// privileged operations (usage limiting, plan changes, Paddle webhooks)
 // happen server-side in the litmus-backend app, never here.
 export function createClient() {
   return createBrowserClient(

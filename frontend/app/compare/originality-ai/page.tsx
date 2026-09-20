@@ -67,7 +67,7 @@ export default function CompareOriginalityPage() {
           {
             label: "Individual paid plan",
             a: "Pro: $14.95 a month, or $12.95 a month billed annually, with 2,000 credits a month.",
-            b: "Pro: $15 a month, or $12 a month billed yearly, with 25,000 words a day. Student: $4 a month.",
+            b: "Pro: $15 a month, or $12 a month billed yearly, with 25,000 words a day. Student: $8 a month.",
           },
           {
             label: "What else is included",
@@ -86,7 +86,7 @@ export default function CompareOriginalityPage() {
           {
             label: "Billing model",
             a: "Subscription credits that renew monthly. Credits bought separately expire after two years.",
-            b: "Subscription tiers by daily word allowance, plus a one-time $3 day pass that adds 10,000 words for 24 hours.",
+            b: "Subscription tiers by daily word allowance, plus a one-time $5 day pass that adds 10,000 words for 24 hours.",
           },
           {
             label: "What the report shows",
@@ -123,7 +123,7 @@ export default function CompareOriginalityPage() {
           what those signals are.
         </li>
         <li>
-          <strong>You are a student or an occasional user.</strong> A $4 Student plan, a free daily allowance, and a $3
+          <strong>You are a student or an occasional user.</strong> An $8 Student plan, a free daily allowance, and a $5
           one-time pass suit a few checks around a deadline better than a monthly credit allowance.
         </li>
         <li>

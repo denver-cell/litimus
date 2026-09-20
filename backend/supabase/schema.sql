@@ -52,33 +52,41 @@ create unique index if not exists usage_daily_ip_date_idx
   on public.usage_daily (ip_hash, usage_date) where ip_hash is not null;
 
 -- One-time $3 day-pass top-ups (+10,000 words / 24h), granted only by the
--- PayFast ITN webhook after a confirmed payment.
+-- Paddle webhook after a confirmed transaction. `paddle_transaction_id` is
+-- unique so a retried webhook can't double-grant words.
 create table if not exists public.day_passes (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null references auth.users (id) on delete cascade,
   purchased_at timestamptz not null default now(),
   expires_at timestamptz not null,
   words_granted integer not null default 10000,
-  payfast_payment_id text
+  paddle_transaction_id text
 );
 
 create index if not exists day_passes_user_active_idx
   on public.day_passes (user_id, expires_at);
 
--- Recurring subscription state, mirrored from PayFast's ITN webhook.
--- `profiles.plan` is the field actually enforced; this table is the
--- billing-history/audit record and holds the PayFast token needed to
--- manage or cancel a subscription later.
+create unique index if not exists day_passes_paddle_transaction_idx
+  on public.day_passes (paddle_transaction_id) where paddle_transaction_id is not null;
+
+-- Recurring subscription state, mirrored from Paddle's subscription
+-- webhooks. `profiles.plan` is the field actually enforced; this table is
+-- the billing-history/audit record and holds the Paddle ids needed to look
+-- up or manage a subscription later.
 create table if not exists public.subscriptions (
   id uuid primary key default gen_random_uuid(),
   user_id uuid not null unique references auth.users (id) on delete cascade,
   plan text not null default 'free' check (plan in ('free', 'student', 'pro', 'team')),
   status text not null default 'active' check (status in ('active', 'past_due', 'cancelled')),
-  payfast_token text,
+  paddle_customer_id text,
+  paddle_subscription_id text,
   current_period_end timestamptz,
   created_at timestamptz not null default now(),
   updated_at timestamptz not null default now()
 );
+
+create unique index if not exists subscriptions_paddle_subscription_idx
+  on public.subscriptions (paddle_subscription_id) where paddle_subscription_id is not null;
 
 -- Row Level Security: users can read their own rows; all writes to these
 -- tables happen server-side via the service-role key (see

@@ -7,12 +7,12 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { createClient } from "@/lib/supabaseClient";
 import { fetchUsage, type UsageResponse } from "@/lib/backend";
-import { TIERS, ZAR_PRICES, type CheckoutPlanId } from "@/lib/pricing";
+import { TIERS, type CheckoutPlanId } from "@/lib/pricing";
 
-// After PayFast redirects back with ?payment=success, the plan doesn't switch
-// on until PayFast's server-to-server notification (the ITN webhook) lands —
-// usually seconds, occasionally longer. Poll for it instead of showing a
-// dashboard that still says "Free" right after the buyer paid.
+// After Paddle's checkout redirects back with ?payment=success, the plan
+// doesn't switch on until Paddle's webhook lands — usually seconds,
+// occasionally longer. Poll for it instead of showing a dashboard that still
+// says "Free" right after the buyer paid.
 const POLL_EVERY_MS = 3_000;
 const POLL_MAX_TRIES = 20; // ~60 seconds
 
@@ -75,7 +75,7 @@ function DashboardContent() {
         if (active) setLoading(false);
       }
 
-      // Back from PayFast: wait for the plan to actually switch on.
+      // Back from Paddle: wait for the plan to actually switch on.
       if (paymentParam === "success" && isPaidPlan(paidPlanParam) && active) {
         setPaidPlan(paidPlanParam);
         if (first && isActivated(paidPlanParam, first)) {
@@ -180,10 +180,10 @@ function DashboardContent() {
       )}
       {activation === "delayed" && paidPlan && (
         <div className="form-note">
-          PayFast hasn&apos;t confirmed your payment to us yet. Your {planLabel(paidPlan)} will switch on
+          Paddle hasn&apos;t confirmed your payment to us yet. Your {planLabel(paidPlan)} will switch on
           automatically once it does — try refreshing in a minute or two. If it still isn&apos;t active after 15
-          minutes, email <a href="mailto:support@litimus.app">support@litimus.app</a> with your PayFast payment
-          reference and we&apos;ll sort it out.
+          minutes, email <a href="mailto:support@litimus.app">support@litimus.app</a> with your Paddle receipt
+          and we&apos;ll sort it out.
         </div>
       )}
 
@@ -225,7 +225,7 @@ function DashboardContent() {
               <Link key={t.id} href={`/checkout?plan=${t.id}`} className="btn btn-ghost btn-sm">
                 {t.name} · {t.id === "team" ? "from " : ""}
                 {t.price}
-                {t.priceSuffix} ({ZAR_PRICES[t.id as CheckoutPlanId]})
+                {t.priceSuffix}
               </Link>
             ))}
           </div>

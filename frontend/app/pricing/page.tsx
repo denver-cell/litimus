@@ -6,7 +6,7 @@ import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata({
   title: "Pricing — Litimus",
   description:
-    "Litimus pricing: free at 2,000 words a day, Student $4/mo, Pro $15/mo, Team & API from $49/mo, plus a $3 day pass for extra words.",
+    "Litimus pricing: free at 2,000 words a day, Student $8/mo, Pro $15/mo, Team & API from $49/mo, plus a $5 day pass for extra words.",
   path: "/pricing",
 });
 

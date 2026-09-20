@@ -91,7 +91,7 @@ export default function WritersEditorsPage() {
         One-off checks are free: 2,000 words a day, no account, run in your browser. Pro is $15 a month (or $12 a month
         billed yearly) and adds 25,000 words a day, .docx and .pdf files, batch scans of up to 20 files and shareable
         reports. Team &amp; API starts at $49 a month with five seats and a <Link href="/docs/api">REST API</Link>. A
-        $3 day pass adds 10,000 words for 24 hours. See the <Link href="/pricing">pricing page</Link>.
+        $5 day pass adds 10,000 words for 24 hours. See the <Link href="/pricing">pricing page</Link>.
       </p>
 
       <Sources items={[SRC.openai, SRC.liang]} />

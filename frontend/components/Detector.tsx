@@ -379,7 +379,7 @@ export default function Detector() {
     doc.setFont("courier", "normal");
     doc.setFontSize(8.5);
     doc.setTextColor(100, 110, 120);
-    doc.text("Need more than 2,000 words a day? A one-time day pass or a Student plan starts at $3.", marginX, y);
+    doc.text("Need more than 2,000 words a day? A one-time day pass starts at $5, or go Student for $8/mo.", marginX, y);
 
     const fileName = `litimus-report-${Date.now()}.pdf`;
     doc.save(fileName);

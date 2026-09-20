@@ -36,7 +36,7 @@ export const TIERS: Tier[] = [
   {
     id: "student",
     name: "Student",
-    price: "$4",
+    price: "$8",
     priceSuffix: "/mo",
     cycle: "billed monthly · student-verified",
     description: "Full Pro limits at a student rate, wherever you study.",
@@ -92,7 +92,7 @@ export const TIERS: Tier[] = [
 export const FREE_WORD_LIMIT = 2_000;
 
 export const DAY_PASS = {
-  price: "$3",
+  price: "$5",
   priceSuffix: "once-off",
   words: 10_000,
   validHours: 24,
@@ -104,21 +104,8 @@ export const DAY_PASS = {
 // the Free tier needs no account and no payment.
 export type CheckoutPlanId = Exclude<TierId, "free"> | "daypass";
 
-// What PayFast actually charges. PayFast settles in South African rand, so
-// checkout discloses this rand equivalent in the fine print (the headline
-// prices and totals everywhere are in USD). MUST match the amounts in
-//   backend/app/api/billing/payfast/checkout/route.ts (PLAN_PRICES_ZAR)
-//   backend/app/api/daypass/route.ts (amountZar)
-// These are still placeholder FX conversions — see the PayFast go-live task.
-export const ZAR_PRICES: Record<CheckoutPlanId, string> = {
-  student: "R74.00",
-  pro: "R275.00",
-  team: "R899.00",
-  daypass: "R55.00",
-};
-
 // Version stamp of the Terms of Service / Refund Policy a customer agreed to
 // at checkout, saved on their account. Bump it whenever /terms or
 // /refund-policy change materially (both currently say "Last updated
-// 2026-09-04").
-export const TERMS_VERSION = "2026-09-04";
+// 2026-09-20").
+export const TERMS_VERSION = "2026-09-20";

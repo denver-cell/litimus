@@ -85,8 +85,8 @@ export default function StudentsPage() {
 
       <h2>Student pricing</h2>
       <p>
-        The free tier covers 2,000 words a day with no account. The Student plan is $4 a month, requires student
-        verification, and gives 25,000 words a day and .docx and .pdf files. If you only have one deadline, a $3 day
+        The free tier covers 2,000 words a day with no account. The Student plan is $8 a month, requires student
+        verification, and gives 25,000 words a day and .docx and .pdf files. If you only have one deadline, a $5 day
         pass adds 10,000 words for 24 hours. See the <Link href="/pricing">pricing page</Link>.
       </p>
 

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { TIERS, DAY_PASS, ZAR_PRICES } from "@/lib/pricing";
+import { TIERS, DAY_PASS } from "@/lib/pricing";
 
 export default function PricingTable() {
   return (
@@ -36,14 +36,14 @@ export default function PricingTable() {
         <span>🎓</span>
         <div>
           <b>Student pricing is a real discount, not a trial.</b> Verify once a year through our global
-          student-verification partner and keep Pro-level limits at $4/mo — about the cost of one coffee, because
+          student-verification partner and keep Pro-level limits at $8/mo — about half of Pro, because
           we&apos;d rather have students checking their own drafts than avoiding the tool entirely.
         </div>
       </div>
 
       <p style={{ fontSize: "0.85rem", color: "var(--ink-soft)", margin: "0 0 20px" }}>
-        Prices are in US dollars. Payments are processed by PayFast in South African rand, so its payment page shows
-        the rand equivalent (for example {ZAR_PRICES.pro} for Pro).
+        Prices are in US dollars, billed securely by Paddle, our merchant of record — no currency conversion or
+        surprise FX fee.
       </p>
 
       <div className="boost-card">

@@ -122,7 +122,7 @@ export default function TeachersPage() {
       <p>
         The free tier covers 2,000 words a day with no account, enough for a handful of spot checks. If you check work
         regularly, Pro is $15 a month (or $12 a month billed yearly) with 25,000 words a day, .docx and .pdf files and
-        batch scans of up to 20 files. Team &amp; API starts at $49 a month with five seats for departments. A $3 day
+        batch scans of up to 20 files. Team &amp; API starts at $49 a month with five seats for departments. A $5 day
         pass adds 10,000 words for 24 hours. Full details are on the <Link href="/pricing">pricing page</Link>.
       </p>
       <p>

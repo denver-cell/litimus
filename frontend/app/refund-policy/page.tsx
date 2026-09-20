@@ -18,7 +18,7 @@ export default function RefundPolicyPage() {
           <div className="section-eyebrow">Refund Policy</div>
           <h2>Refund Policy</h2>
           <p className="hero-sub" style={{ maxWidth: "none" }}>
-            Last updated: September 4, 2026
+            Last updated: September 20, 2026
           </p>
 
           <p>
@@ -38,7 +38,7 @@ export default function RefundPolicyPage() {
 
           <h3>2. Subscription Plans (Student, Pro, Team &amp; API)</h3>
           <ul>
-            <li>Subscriptions are billed monthly in advance via PayFast.</li>
+            <li>Subscriptions are billed monthly in advance via Paddle.</li>
             <li>
               You may cancel your subscription at any time from your account dashboard. Cancellation stops future
               billing but does not generate a refund for the current billing period already paid for — you will
@@ -74,7 +74,7 @@ export default function RefundPolicyPage() {
           <p>
             Refund requests relating to billing errors, duplicate charges, or technical failures should be sent to{" "}
             <a href="mailto:support@litimus.app">support@litimus.app</a>, including your account email address and
-            the relevant transaction date/reference from PayFast. We aim to respond to all refund requests within 5
+            the relevant transaction date/reference from your Paddle receipt. We aim to respond to all refund requests within 5
             business days.
           </p>
 

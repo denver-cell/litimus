@@ -103,7 +103,7 @@ export default function CompareGptzeroPage() {
             ),
             b: (
               <>
-                Free, Student $4/mo, Pro $15/mo, Team &amp; API from $49/mo, and a one-time $3 day pass. See{" "}
+                Free, Student $8/mo, Pro $15/mo, Team &amp; API from $49/mo, and a one-time $5 day pass. See{" "}
                 <Link href="/pricing">pricing</Link>.
               </>
             ),
@@ -143,7 +143,7 @@ export default function CompareGptzeroPage() {
           for free scans.
         </li>
         <li>
-          <strong>You have one deadline, not a subscription.</strong> A $3 day pass adds 10,000 words for 24 hours.
+          <strong>You have one deadline, not a subscription.</strong> A $5 day pass adds 10,000 words for 24 hours.
         </li>
       </ul>
 

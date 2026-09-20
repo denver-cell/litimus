@@ -53,12 +53,11 @@ Functions via `@netlify/plugin-nextjs`.
   in sync manually — see the comment at the top of `lib/analyze.ts`), enforces the
   daily word limit per plan, records usage.
 - `GET /api/usage` — current plan + today's word usage for the logged-in user.
-- `POST /api/daypass` — starts a PayFast checkout for the $3 one-time day pass.
-- `POST /api/billing/payfast/checkout` — starts a PayFast checkout for a paid plan
-  (student/pro/team).
-- `POST /api/billing/payfast/notify` — PayFast's ITN webhook. This is the only place
-  a plan upgrade or day pass actually gets granted — checkout endpoints only start
-  payment, never grant anything themselves.
+- `POST /api/billing/paddle/webhook` — Paddle's webhook. This is the only place a
+  plan upgrade or day pass actually gets granted. Checkout itself (plans and the day
+  pass alike) is started entirely client-side via Paddle.js — see
+  `frontend/lib/paddle.ts` — so there's no backend "start checkout" endpoint; this
+  webhook is the only thing the backend has to do with payments.
 - `POST /api/auth/verify-student` — stub integration point for a third-party student
   verification provider (SheerID/UNiDAYS-style); currently auto-approves and needs a
   real provider wired in before launch.
@@ -70,7 +69,7 @@ Run locally:
 
 ```
 cd backend
-cp .env.example .env.local   # fill in Supabase service role key + PayFast sandbox creds
+cp .env.example .env.local   # fill in Supabase service role key + Paddle webhook secret/price ids
 npm install
 npm run dev   # serves on :3001
 ```
@@ -81,22 +80,30 @@ npm run dev   # serves on :3001
 2. Run `backend/supabase/schema.sql` in the SQL editor. It creates:
    - `profiles` (plan, student verification) — auto-populated on signup via a trigger
    - `usage_daily` (per-user or per-hashed-IP daily word counts)
-   - `day_passes` (active $3 top-ups)
-   - `subscriptions` (recurring billing state + PayFast token, mirrored from the ITN webhook)
+   - `day_passes` (active $5 top-ups)
+   - `subscriptions` (recurring billing state + Paddle customer/subscription ids, mirrored
+     from Paddle's webhooks)
    - RLS policies so users can read their own rows; all writes happen server-side via
      the service role key, which bypasses RLS.
 3. Put the project URL + anon key in `frontend/.env.local`, and the project URL +
    **service role key** (server-only, never exposed to the browser) in
    `backend/.env.local`.
 
-## Payments (PayFast)
+## Payments (Paddle)
 
-`backend/lib/payfast.ts` implements PayFast's MD5 signature scheme and the two-step
-ITN validation they require (recompute signature, then post the raw payload back to
-PayFast's `/eng/query/validate` endpoint) before trusting any payment. Prices in
-`checkout/route.ts` and `daypass/route.ts` are placeholders in ZAR — replace with real,
-FX-checked amounts before launch. Set `PAYFAST_SANDBOX=true` while testing against
-PayFast's sandbox merchant credentials.
+Paddle is our merchant of record — it bills in real USD, handles global VAT/tax, and
+owns the customer relationship for payments, unlike PayFast which was just a payment
+processor. Checkout happens entirely client-side: `frontend/lib/paddle.ts` opens
+Paddle.js's checkout overlay directly with a price id (`NEXT_PUBLIC_PADDLE_PRICE_*`),
+no backend round-trip needed to start a payment. `backend/lib/paddle.ts` implements
+Paddle's webhook signature scheme (HMAC-SHA256 over `${ts}:${rawBody}`, matching the
+`Paddle-Signature` header) and the plan↔price-id lookup used to interpret incoming
+webhook events in `app/api/billing/paddle/webhook/route.ts` — the only place a plan
+upgrade or day pass is actually granted. Set `NEXT_PUBLIC_PADDLE_ENV=sandbox` on the
+frontend while testing against a Paddle sandbox account (the backend's webhook
+handler doesn't need to know sandbox vs. production — it only verifies a signature),
+and create matching sandbox price ids for student/pro/team/day-pass in the Paddle
+dashboard before this will actually work end-to-end.
 
 ## What's still a placeholder / roadmap
 
@@ -109,9 +116,11 @@ PayFast's sandbox merchant credentials.
   package.
 - **Student verification**: `verify-student/route.ts` auto-approves; needs a real
   SheerID/UNiDAYS-style provider integrated.
-- **PayFast pricing**: placeholder ZAR amounts; needs real FX-checked pricing and
-  PayFast's recurring-billing ("subscription") token flow fully wired (currently only
-  a one-off checkout + webhook-side profile update, no automatic monthly re-charge
-  handling beyond what PayFast's own subscription product provides).
+- **Paddle go-live**: sandbox integration only so far — needs real (non-sandbox) Paddle
+  account approval, live price ids swapped in, and the webhook's notification
+  destination pointed at the real backend URL before this can take real payments.
+- **Student plan verification isn't actually enforced at checkout** (see the NOTE in
+  `verify-student/route.ts`) — anyone can currently buy the Student plan regardless of
+  `student_verified_until`.
 - **CORS on the backend** is wide open (`Access-Control-Allow-Origin: *`) for early
   development — restrict to the real frontend origin(s) before launch.
