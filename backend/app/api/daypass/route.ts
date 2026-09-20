@@ -14,12 +14,22 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Log in to buy a day pass." }, { status: 401 });
   }
 
-  const fields = buildCheckoutFields({
-    amountZar: "55.00", // ~$3 USD equivalent; replace with live FX-adjusted ZAR pricing before launch
-    itemName: "Litimus day pass (+10,000 words / 24h)",
-    userId: user.id,
-    plan: "daypass",
-  });
+  let fields;
+  try {
+    fields = buildCheckoutFields({
+      amountZar: "55.00", // ~$3 USD equivalent; replace with live FX-adjusted ZAR pricing before launch
+      itemName: "Litimus day pass (+10,000 words / 24h)",
+      userId: user.id,
+      plan: "daypass",
+    });
+  } catch (err) {
+    // Most likely PayFast credentials aren't set on this site yet.
+    console.error("PayFast day pass checkout could not be built:", err);
+    return NextResponse.json(
+      { error: "Payments are temporarily unavailable. Please try again shortly or email support@litimus.app." },
+      { status: 503 }
+    );
+  }
 
   return NextResponse.json({
     redirectUrl: `https://${payfastHost()}/eng/process`,

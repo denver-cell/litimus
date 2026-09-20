@@ -28,12 +28,23 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: `Unknown plan "${plan}".` }, { status: 400 });
   }
 
-  const fields = buildCheckoutFields({
-    amountZar: priced.amount,
-    itemName: priced.label,
-    userId: user.id,
-    plan,
-  });
+  let fields;
+  try {
+    fields = buildCheckoutFields({
+      amountZar: priced.amount,
+      itemName: priced.label,
+      userId: user.id,
+      plan,
+    });
+  } catch (err) {
+    // Most likely PayFast credentials aren't set on this site yet. Log the
+    // real reason; give the buyer something readable instead of a bare 500.
+    console.error("PayFast checkout could not be built:", err);
+    return NextResponse.json(
+      { error: "Payments are temporarily unavailable. Please try again shortly or email support@litimus.app." },
+      { status: 503 }
+    );
+  }
 
   return NextResponse.json({
     redirectUrl: `https://${payfastHost()}/eng/process`,

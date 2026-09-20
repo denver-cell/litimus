@@ -59,8 +59,13 @@ export function buildCheckoutFields(params: CheckoutParams) {
   const fields: Record<string, string> = {
     merchant_id: merchantId,
     merchant_key: merchantKey,
-    return_url: `${frontendUrl}/dashboard?payment=success`,
-    cancel_url: `${frontendUrl}/pricing?payment=cancelled`,
+    // Where PayFast sends the buyer afterwards. The frontend uses `plan` to
+    // wait for the ITN webhook to switch the plan on (dashboard) or to put
+    // the buyer back in their checkout with the plan still selected.
+    // NOTE: these are only *values*; the field set and order the signature
+    // covers is unchanged.
+    return_url: `${frontendUrl}/dashboard?payment=success&plan=${encodeURIComponent(params.plan)}`,
+    cancel_url: `${frontendUrl}/checkout?plan=${encodeURIComponent(params.plan)}&payment=cancelled`,
     notify_url: `${backendUrl}/api/billing/payfast/notify`,
     m_payment_id: `${params.userId}:${Date.now()}`,
     amount: params.amountZar,
