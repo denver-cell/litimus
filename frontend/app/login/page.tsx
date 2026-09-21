@@ -77,6 +77,11 @@ function LoginForm() {
             onChange={(e) => setPassword(e.target.value)}
             autoComplete="current-password"
           />
+          <div style={{ marginTop: 8, textAlign: "right" }}>
+            <Link href="/forgot-password" style={{ fontSize: "0.82rem", color: "var(--steel)" }}>
+              Forgot password?
+            </Link>
+          </div>
         </div>
         <button className="btn" type="submit" disabled={loading} style={{ width: "100%" }}>
           {loading ? "Logging in…" : "Log in"}
