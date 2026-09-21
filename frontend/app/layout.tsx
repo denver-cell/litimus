@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Script from "next/script";
 import "./globals.css";
 import JsonLd from "@/components/JsonLd";
@@ -22,9 +22,12 @@ export const metadata: Metadata = {
     icon: [
       { url: "/favicon.ico", sizes: "any" },
       { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
     ],
     apple: "/apple-touch-icon.png",
   },
+  manifest: "/site.webmanifest",
   // Fallback for routes that don't call pageMetadata() (e.g. the 404 page).
   openGraph: {
     type: "website",
@@ -40,6 +43,10 @@ export const metadata: Metadata = {
     description: HOME_DESCRIPTION,
     images: [OG_IMAGE.url],
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#1B2430",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

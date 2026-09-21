@@ -131,6 +131,19 @@ export function breadcrumbSchema(items: { name: string; path: string }[]) {
   };
 }
 
+/** FAQPage markup. Rendered on the homepage only, from the same Q&A shown in components/Faq.tsx. */
+export function faqSchema(items: { q: string; a: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((item) => ({
+      "@type": "Question",
+      name: item.q,
+      acceptedAnswer: { "@type": "Answer", text: item.a },
+    })),
+  };
+}
+
 /** Article markup for guides and comparison pages. Authored by the organization, not a named person. */
 export function articleSchema(input: {
   title: string;

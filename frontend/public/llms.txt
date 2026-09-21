@@ -7,7 +7,7 @@ Litimus is operated by Forsta Group (Pty) Ltd, a South Africa-based company serv
 ## Product
 
 - [Home and free detector](https://litimus.app/): paste a passage and get a scored, annotated report. The free tier allows 2,000 words per day with no account.
-- [Pricing](https://litimus.app/pricing): Free, Student ($4/mo), Pro ($15/mo), Team & API (from $49/mo), plus a one-time $3 day pass that adds 10,000 words for 24 hours.
+- [Pricing](https://litimus.app/pricing): Free, Student ($8/mo), Pro ($15/mo), Team & API (from $49/mo), plus a one-time $5 day pass that adds 10,000 words for 24 hours.
 - [API documentation](https://litimus.app/docs/api): REST API for the Team & API plan.
 
 ## Guides, comparisons and use cases
