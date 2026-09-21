@@ -7,7 +7,8 @@ import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { createClient } from "@/lib/supabaseClient";
 import { fetchUsage, type UsageResponse } from "@/lib/backend";
-import { TIERS, type CheckoutPlanId } from "@/lib/pricing";
+import { CHECKOUT_PLAN_VALUES, TIERS, type CheckoutPlanId } from "@/lib/pricing";
+import { trackEvent } from "@/lib/analytics";
 
 // After Paddle's checkout redirects back with ?payment=success, the plan
 // doesn't switch on until Paddle's webhook lands — usually seconds,
@@ -31,6 +32,17 @@ function planLabel(id: CheckoutPlanId): string {
 function isActivated(plan: CheckoutPlanId, usage: UsageResponse): boolean {
   if (plan === "daypass") return (usage.dayPassWords ?? 0) > 0;
   return usage.plan === plan;
+}
+
+// Fired once, right when Paddle's webhook has actually switched the plan
+// on — this is the real conversion (begin_checkout in checkout/page.tsx
+// only means the overlay was opened, not that payment succeeded).
+function firePurchaseEvent(plan: CheckoutPlanId): void {
+  trackEvent("purchase", {
+    currency: "USD",
+    value: CHECKOUT_PLAN_VALUES[plan],
+    plan,
+  });
 }
 
 function DashboardContent() {
@@ -80,6 +92,7 @@ function DashboardContent() {
         setPaidPlan(paidPlanParam);
         if (first && isActivated(paidPlanParam, first)) {
           setActivation("active");
+          firePurchaseEvent(paidPlanParam);
           router.replace("/dashboard");
           return;
         }
@@ -97,6 +110,7 @@ function DashboardContent() {
             setUsage(latest);
             if (isActivated(paidPlanParam, latest)) {
               setActivation("active");
+              firePurchaseEvent(paidPlanParam);
               // Drop ?payment=success so a refresh doesn't restart the wait.
               router.replace("/dashboard");
               return;

@@ -104,6 +104,16 @@ export const DAY_PASS = {
 // the Free tier needs no account and no payment.
 export type CheckoutPlanId = Exclude<TierId, "free"> | "daypass";
 
+// Numeric USD value of each purchasable plan, for the GA4 `purchase` event's
+// `value` param — the display strings above aren't safe to parse (team's is
+// "from $49/mo"). Keep in sync with the TIERS/DAY_PASS prices above.
+export const CHECKOUT_PLAN_VALUES: Record<CheckoutPlanId, number> = {
+  student: 8,
+  pro: 15,
+  team: 49,
+  daypass: 5,
+};
+
 // Version stamp of the Terms of Service / Refund Policy a customer agreed to
 // at checkout, saved on their account. Bump it whenever /terms or
 // /refund-policy change materially (both currently say "Last updated
