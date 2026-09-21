@@ -15,7 +15,7 @@ export const SITE_NAME = "Litimus";
 export const LEGAL_NAME = "Forsta Group (Pty) Ltd";
 export const SUPPORT_EMAIL = "support@litimus.app";
 
-export const HOME_TITLE = "Litimus — AI Text Detection";
+export const HOME_TITLE = "Free AI Detector for ChatGPT, Claude & Gemini | Litimus";
 export const HOME_DESCRIPTION =
   "Litimus scores rhythm, phrasing, and repetition the way an editor reads a manuscript — then shows its work sentence by sentence.";
 

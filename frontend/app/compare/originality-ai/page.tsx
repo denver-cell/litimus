@@ -6,7 +6,7 @@ import { CONTENT_UPDATED, SRC } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 
 const PATH = "/compare/originality-ai";
-const TITLE = "Litimus vs Originality.ai: how they differ — Litimus";
+const TITLE = "Originality.ai vs Litimus: Which AI Detector Fits You?";
 const DESCRIPTION =
   "Originality.ai bundles AI detection with plagiarism and other checks for content teams; Litimus does one job. Plans, features and prices compared.";
 

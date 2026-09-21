@@ -6,7 +6,7 @@ import { CONTENT_UPDATED, SRC } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 
 const PATH = "/compare/gptzero";
-const TITLE = "Litimus vs GPTZero: an honest comparison — Litimus";
+const TITLE = "GPTZero vs Litimus: Which AI Detector Fits You?";
 const DESCRIPTION =
   "Litimus and GPTZero compared: languages, integrations, what each report shows, free limits and claims. Where GPTZero is stronger, and where Litimus fits.";
 

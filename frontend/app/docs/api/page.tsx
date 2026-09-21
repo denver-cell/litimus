@@ -3,7 +3,7 @@ import Footer from "@/components/Footer";
 import { pageMetadata } from "@/lib/seo";
 
 export const metadata = pageMetadata({
-  title: "API docs — Litimus",
+  title: "AI Detector API for Developers — REST Docs | Litimus",
   description:
     "Litimus REST API for the Team & API plan: send text to the detect endpoint with a bearer API key and receive a scored analysis.",
   path: "/docs/api",

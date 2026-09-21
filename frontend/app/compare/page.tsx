@@ -5,7 +5,7 @@ import { CONTENT_UPDATED, SRC } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 
 const PATH = "/compare";
-const TITLE = "AI detector comparisons — Litimus";
+const TITLE = "Litimus vs GPTZero, Turnitin & Originality.ai — Compared";
 const DESCRIPTION =
   "How Litimus differs from GPTZero, Turnitin and Originality.ai: who each tool is built for, what its report shows, and when the other tool is the better fit.";
 

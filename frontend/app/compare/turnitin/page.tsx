@@ -6,7 +6,7 @@ import { CONTENT_UPDATED, SRC } from "@/lib/content";
 import { pageMetadata } from "@/lib/seo";
 
 const PATH = "/compare/turnitin";
-const TITLE = "Litimus vs Turnitin: how they differ — Litimus";
+const TITLE = "Turnitin vs Litimus: Which AI Detector Fits You?";
 const DESCRIPTION =
   "Turnitin’s AI Writing Report is an institutional tool; Litimus is open to anyone. How the scores, limits and access differ, and what Turnitin itself says.";
 
