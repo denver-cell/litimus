@@ -2,6 +2,7 @@ import Link from "next/link";
 import Article from "@/components/Article";
 import Sources from "@/components/Sources";
 import { CONTENT_UPDATED, SRC } from "@/lib/content";
+import { getPublishedArticles } from "@/lib/articles";
 import { pageMetadata } from "@/lib/seo";
 
 const PATH = "/for/students";
@@ -11,7 +12,11 @@ const DESCRIPTION =
 
 export const metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: PATH });
 
+// Picks up newly-published articles without a redeploy (see lib/articles.ts).
+export const revalidate = 3600;
+
 export default function StudentsPage() {
+  const recentArticles = getPublishedArticles("students", { limit: 6 });
   return (
     <Article
       eyebrow="For students"
@@ -89,6 +94,20 @@ export default function StudentsPage() {
         verification, and gives 25,000 words a day and .docx and .pdf files. If you only have one deadline, a $5 day
         pass adds 10,000 words for 24 hours. See the <Link href="/pricing">pricing page</Link>.
       </p>
+
+      {recentArticles.length > 0 && (
+        <>
+          <h2>Recent articles</h2>
+          <div className="card-grid">
+            {recentArticles.map((a) => (
+              <Link key={a.slug} href={`/for/students/${a.slug}`} className="card-link">
+                <b>{a.title}</b>
+                <span>{a.description}</span>
+              </Link>
+            ))}
+          </div>
+        </>
+      )}
 
       <Sources items={[SRC.liang, SRC.turnitinGuide]} />
     </Article>

@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/seo";
+import { getPublishedArticles, PILLARS } from "@/lib/articles";
 
 // Public, indexable pages only. When a new public page is added (guide,
 // comparison page, use-case page), add its path here.
@@ -26,5 +27,11 @@ const PATHS = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return PATHS.map((path) => ({ url: new URL(path, SITE_URL).toString() }));
+  // Pre-written articles under content/articles/ — only ones whose
+  // publishAt has passed are included, so scheduled-but-unpublished
+  // articles stay out of the sitemap until their date arrives.
+  const articlePaths = PILLARS.flatMap((pillar) =>
+    getPublishedArticles(pillar).map((a) => `/for/${pillar}/${a.slug}`),
+  );
+  return [...PATHS, ...articlePaths].map((path) => ({ url: new URL(path, SITE_URL).toString() }));
 }

@@ -2,6 +2,7 @@ import Link from "next/link";
 import Article from "@/components/Article";
 import Sources from "@/components/Sources";
 import { CONTENT_UPDATED, SRC } from "@/lib/content";
+import { getPublishedArticles } from "@/lib/articles";
 import { pageMetadata } from "@/lib/seo";
 
 const PATH = "/for/teachers";
@@ -11,7 +12,11 @@ const DESCRIPTION =
 
 export const metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: PATH });
 
+// Picks up newly-published articles without a redeploy (see lib/articles.ts).
+export const revalidate = 3600;
+
 export default function TeachersPage() {
+  const recentArticles = getPublishedArticles("teachers", { limit: 6 });
   return (
     <Article
       eyebrow="For teachers"
@@ -129,6 +134,20 @@ export default function TeachersPage() {
         If your school already licenses Turnitin, that is the report your institution’s process will point to. See how
         it <Link href="/compare/turnitin">compares with Litimus</Link>.
       </p>
+
+      {recentArticles.length > 0 && (
+        <>
+          <h2>Recent articles</h2>
+          <div className="card-grid">
+            {recentArticles.map((a) => (
+              <Link key={a.slug} href={`/for/teachers/${a.slug}`} className="card-link">
+                <b>{a.title}</b>
+                <span>{a.description}</span>
+              </Link>
+            ))}
+          </div>
+        </>
+      )}
 
       <Sources items={[SRC.turnitinGuide, SRC.turnitinFalsePositives, SRC.liang]} />
     </Article>

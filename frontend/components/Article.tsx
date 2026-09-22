@@ -35,6 +35,7 @@ export default function Article({
   path,
   crumbs,
   updated,
+  published,
   isArticle = false,
   related,
   cta = true,
@@ -49,6 +50,8 @@ export default function Article({
   crumbs: Crumb[];
   /** ISO date the page was last reviewed. */
   updated: string;
+  /** ISO date first published. Defaults to the site-wide CONTENT_PUBLISHED for hand-written pages; pre-written articles pass their own. */
+  published?: string;
   isArticle?: boolean;
   related?: RelatedLink[];
   cta?: boolean;
@@ -58,7 +61,9 @@ export default function Article({
     <>
       <JsonLd data={breadcrumbSchema(crumbs)} />
       {isArticle && (
-        <JsonLd data={articleSchema({ title, description, path, published: CONTENT_PUBLISHED, modified: updated })} />
+        <JsonLd
+          data={articleSchema({ title, description, path, published: published ?? CONTENT_PUBLISHED, modified: updated })}
+        />
       )}
       <Nav />
       <section style={{ paddingTop: 56, paddingBottom: 64 }}>

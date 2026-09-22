@@ -2,6 +2,7 @@ import Link from "next/link";
 import Article from "@/components/Article";
 import Sources from "@/components/Sources";
 import { CONTENT_UPDATED, SRC } from "@/lib/content";
+import { getPublishedArticles } from "@/lib/articles";
 import { pageMetadata } from "@/lib/seo";
 
 const PATH = "/for/writers-and-editors";
@@ -11,7 +12,11 @@ const DESCRIPTION =
 
 export const metadata = pageMetadata({ title: TITLE, description: DESCRIPTION, path: PATH });
 
+// Picks up newly-published articles without a redeploy (see lib/articles.ts).
+export const revalidate = 3600;
+
 export default function WritersEditorsPage() {
+  const recentArticles = getPublishedArticles("writers-and-editors", { limit: 6 });
   return (
     <Article
       eyebrow="For writers and editors"
@@ -93,6 +98,20 @@ export default function WritersEditorsPage() {
         reports. Team &amp; API starts at $49 a month with five seats and a <Link href="/docs/api">REST API</Link>. A
         $5 day pass adds 10,000 words for 24 hours. See the <Link href="/pricing">pricing page</Link>.
       </p>
+
+      {recentArticles.length > 0 && (
+        <>
+          <h2>Recent articles</h2>
+          <div className="card-grid">
+            {recentArticles.map((a) => (
+              <Link key={a.slug} href={`/for/writers-and-editors/${a.slug}`} className="card-link">
+                <b>{a.title}</b>
+                <span>{a.description}</span>
+              </Link>
+            ))}
+          </div>
+        </>
+      )}
 
       <Sources items={[SRC.openai, SRC.liang]} />
     </Article>
