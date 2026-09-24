@@ -26,6 +26,10 @@ const PATHS = [
   "/refund-policy",
 ];
 
+// Without this, the route is static and frozen at whatever was published at
+// the last deploy — newly-due articles wouldn't appear until the next push.
+export const revalidate = 3600;
+
 export default function sitemap(): MetadataRoute.Sitemap {
   // Pre-written articles under content/articles/ — only ones whose
   // publishAt has passed are included, so scheduled-but-unpublished
